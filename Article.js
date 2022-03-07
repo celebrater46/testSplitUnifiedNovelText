@@ -1,9 +1,31 @@
 class Article {
-    constructor(num, chapter, title, text) {
+    constructor(num, text) {
         this.id = num;
-        this.chapter = chapter;
-        this.title = title;
-        this.pages = [];
-        this.plane = text;
+        this.chapter = this.getChapter(text);
+        // this.chapter = null;
+        this.title = this.getTitle(text);
+        // this.title = null;
+        // this.pages = [];
+        // this.plane = text;
+        this.plane = this.getText(text);
+    }
+
+    getChapter(text){
+        const chap = text.match(/<Chapter>(.*)<\/Chapter>/i);
+        console.log("chap:");
+        console.log(chap);
+        return chap === null ? null : chap[0].replace(/<Chapter>(.*)<\/Chapter>/i, "$1");
+    }
+
+    getTitle(text){
+        const sub = text.match(/<Sub>(.*)<\/Sub>/i);
+        return sub === null ? null : sub[0].replace(/<Sub>(.*)<\/Sub>/i, "$1");
+    }
+
+    getText(text) {
+        let str = text.replace(/((\r\n)*|(\r)*|(\n)*)<Title>(.*)<\/Title>((\r\n)*|(\r)*|(\n)*)/gi, "");
+        str = str.replace(/((\r\n)*|(\r)*|(\n)*)<Chapter>(.*)<\/Chapter>((\r\n)*|(\r)*|(\n)*)/gi, "");
+        str = str.replace(/((\r\n)*|(\r)*|(\n)*)<Sub>(.*)<\/Sub>((\r\n)*|(\r)*|(\n)*)/gi, "");
+        return str;
     }
 }

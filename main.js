@@ -15,6 +15,7 @@ const getAsyncText = async() => {
     if(result !== null){
         const book = new Book();
         await book.init(result);
+        await book.getArticles();
         console.log(book);
     }
     // console.log("From getAsyncText(): ");

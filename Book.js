@@ -58,10 +58,10 @@ class Book {
         replaced = replaced.split("#BR#");
         for(let i = 0; i < replaced.length; i++){
             let str = replaced[i].replace(/<Title>(.*)<\/Title>((\r\n)*|(\r)*|(\n)*)/gi, "");
-            str = str.replace(/<Chapter>(.*)<\/Chapter>((\r\n)*|(\r)*|(\n)*)/gi, "");
-            // str = str.replace(/<Sub>(.*)<\/Sub>((\\r\\n)*|(\\r)*|(\\n)*)/gi, "");
-            str = str.replace(/<Sub>(.*)<\/Sub>((\r\n)*|(\r)*|(\n)*)/gi, "");
+            // str = str.replace(/<Chapter>(.*)<\/Chapter>((\r\n)*|(\r)*|(\n)*)/gi, "");
+            // str = str.replace(/<Sub>(.*)<\/Sub>((\r\n)*|(\r)*|(\n)*)/gi, "");
             array.push(str);
+            // array.push(replaced);
         }
         this.defaultText = txt;
         this.planeTexts = array;
@@ -73,11 +73,26 @@ class Book {
     }
 
     initPromise(txt) {
-        return new Promise((resolve, reject)=> {
+        return new Promise(resolve => {
             this.getTitle(txt);
             this.getChapters(txt);
             this.getSubTitles(txt);
             this.getTexts(txt);
+            resolve();
+        });
+    }
+
+    async getArticles() {
+        return await this.getArticlesPromise();
+    }
+
+    getArticlesPromise() {
+        return new Promise(resolve => {
+            let i = 0;
+            this.planeTexts.map((text) => {
+                this.articles.push(new Article(i, text));
+                i++;
+            });
             resolve();
         });
     }
