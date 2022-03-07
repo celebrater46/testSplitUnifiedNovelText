@@ -2,11 +2,7 @@ class Article {
     constructor(num, text) {
         this.id = num;
         this.chapter = this.getChapter(text);
-        // this.chapter = null;
         this.title = this.getTitle(text);
-        // this.title = null;
-        // this.pages = [];
-        // this.plane = text;
         this.plane = this.getText(text);
     }
 
