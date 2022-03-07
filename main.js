@@ -13,11 +13,12 @@ const getText4 = async() => {
 const getAsyncText = async() => {
     const result = await getText4();
     if(result !== null){
-        const book = new Book("shiroganeki", result);
+        const book = new Book();
+        await book.init(result);
         console.log(book);
     }
-    console.log("From getAsyncText(): ");
-    console.log(result); // succeeded
+    // console.log("From getAsyncText(): ");
+    // console.log(result); // succeeded
 }
 
 getAsyncText();
