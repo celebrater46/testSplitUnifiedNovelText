@@ -4,6 +4,7 @@ class Article {
         this.chapter = this.getChapter(text);
         this.title = this.getTitle(text);
         this.plane = this.getText(text);
+        this.pages = [];
     }
 
     getChapter(text){
